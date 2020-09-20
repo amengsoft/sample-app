@@ -44,18 +44,23 @@ class InGame extends AppWindow {
   }
 
   private onInfoUpdates(info) {
-    this.logLine(this._infoLog, info, false);
+    if(info.live_client_data && info.live_client_data.all_players) {
+      var players = JSON.parse(info.live_client_data.all_players);
+      for(var x = 0; x < players.length; x++){
+        this.logLine(this._infoLog, players[x].championName, false);
+      }
+    }
   }
 
   // Special events will be highlighted in the event log
   private onNewEvents(e) {
-    const shouldHighlight = e.events.some(event => {
-      return event.name === 'kill' ||
-        event.name === 'death' ||
-        event.name === 'assist' ||
-        event.name === 'level'
+    const shouldLog = e.events.some(event => {
+      return event.name != 'match_clock'
     });
-    this.logLine(this._eventsLog, e, shouldHighlight);
+
+    if(shouldLog) {
+      this.logLine(this._eventsLog, e, shouldLog);
+    }
   }
 
   // Displays the toggle minimize/restore hotkey in the window header
