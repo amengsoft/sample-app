@@ -1,4 +1,4 @@
-const fortniteClassId = 5426;
+const lolClassId = 5426;
 
 const interestingFeatures = [
   'summoner_info',
@@ -8,6 +8,10 @@ const interestingFeatures = [
   'kill',
   'death',
   'respawn',
+  'abilities',
+  'gold',
+  'level',
+  'counters',
   'assist',
   'minions',
   'level',
@@ -30,7 +34,7 @@ const hotkeys = {
 };
 
 export {
-  fortniteClassId,
+  lolClassId,
   interestingFeatures,
   windowNames,
   hotkeys

@@ -11,7 +11,7 @@ import WindowState = overwolf.windows.WindowState;
 // Like the background window, it also implements the Singleton design pattern.
 class InGame extends AppWindow {
   private static _instance: InGame;
-  private _fortniteGameEventsListener: OWGamesEvents;
+  private _lolGameEventsListener: OWGamesEvents;
   private _eventsLog: HTMLElement;
   private _infoLog: HTMLElement;
 
@@ -24,7 +24,7 @@ class InGame extends AppWindow {
     this.setToggleHotkeyBehavior();
     this.setToggleHotkeyText();
 
-    this._fortniteGameEventsListener = new OWGamesEvents({
+    this._lolGameEventsListener = new OWGamesEvents({
       onInfoUpdates: this.onInfoUpdates.bind(this),
       onNewEvents: this.onNewEvents.bind(this)
     },
@@ -40,22 +40,28 @@ class InGame extends AppWindow {
   }
 
   public run() {
-    this._fortniteGameEventsListener.start();
+    this._lolGameEventsListener.start();
   }
 
   private onInfoUpdates(info) {
+    //this.logLine(this._infoLog, info, false);
+
     if(info.live_client_data && info.live_client_data.all_players) {
-      var players = JSON.parse(info.live_client_data.all_players);
-      for(var x = 0; x < players.length; x++){
-        this.logLine(this._infoLog, players[x].championName, false);
-      }
+      this.displayAllPlayers(info.live_client_data.all_players);
+
+    } else if(info.game_info) {
+      this.displayTeamInfo(info.game_info.teams);
     }
+    
   }
 
   // Special events will be highlighted in the event log
   private onNewEvents(e) {
     const shouldLog = e.events.some(event => {
-      return event.name != 'match_clock'
+      return event.name != 'match_clock' &&
+      event.name != 'physical_damage_dealt_player' &&
+      event.name != 'magic_damage_dealt_player' &&
+      event.name != 'true_damage_dealt_player'
     });
 
     if(shouldLog) {
@@ -106,6 +112,46 @@ class InGame extends AppWindow {
     if (shouldAutoScroll) {
       log.scrollTop = log.scrollHeight;
     }
+  }
+
+  private displayTeamInfo(teamsString) {
+    var teams = JSON.parse(decodeURI(teamsString));
+
+    this.logLine(this._infoLog, teams, false);
+
+    var chaos = document.createElement('div');
+    var br = document.createElement('br');
+    var order = document.createElement('div');
+
+    for(var i = 0; i < teams.length; i++) {
+      var player = teams[i];
+      var src = "../../img/champions/" + player["champion"] + "Square.png"
+      const img = document.createElement('img');
+      img.src = src;
+      img.title = player["champion"];
+      img.width = 48;
+      img.height = 48;
+
+      
+      if(player["team"] == 'ORDER') {
+        order.appendChild(img);
+      }
+      else {
+        chaos.appendChild(img);
+      }
+    }
+    
+    this._infoLog.appendChild(order);
+    this._infoLog.appendChild(br);
+    this._infoLog.appendChild(chaos);
+
+  }
+
+  private displayAllPlayers(playersString){
+    var players = JSON.parse(playersString);
+      for(var i = 0; i < players.length; i++){
+        this.logLine(this._infoLog, players[i].championName, false);
+      }
   }
 }
 
