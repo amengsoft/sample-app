@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppWindow } from "../AppWindow";
 import { windowNames } from "../../consts";
-import App from "../../modules/likebutton";
+import App from "../../modules/test_react";
 
 
 // The desktop window is the window displayed while Fortnite is not running.
