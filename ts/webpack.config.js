@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         background: './windows/background/background.ts',
-        desktop: './windows/desktop/desktop.ts',
+        desktop: './windows/desktop/desktop.tsx',
         in_game: './windows/in_game/in_game.ts'
     },
     devtool: 'inline-source-map',
@@ -12,7 +12,7 @@ module.exports = {
             {
                 test: /\.(js|jsx|tsx|ts)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                loader: 'ts-loader'
             }
         ]
     },

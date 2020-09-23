@@ -9,6 +9,7 @@
     "strictNullChecks": false,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "typeRoots": [
       "/types", 
       "/node_modules/@overwolf/types"
@@ -18,7 +19,8 @@
     ],
     "moduleResolution": "node",
     "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "noEmit": false
   },
   "exclude": [
     "node_modules"
