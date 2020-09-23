@@ -82,7 +82,7 @@
       "showhide": {
         "title": "Show/Hide In-Game Window",
         "action-type": "toggle",
-        "default": "Ctrl+V"
+        "default": "Ctrl+S"
       }
     },
     "protocol_override_domains": {
