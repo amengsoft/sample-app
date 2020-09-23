@@ -2,7 +2,6 @@ import { AppWindow } from "../AppWindow";
 import { OWGamesEvents } from "../../odk-ts/ow-games-events";
 import { OWHotkeys } from "../../odk-ts/ow-hotkeys";
 import { interestingFeatures, hotkeys, windowNames } from "../../consts";
-import WindowState = overwolf.windows.WindowState;
 
 // The window displayed in-game while a Fortnite game is running.
 // It listens to all info events and to the game events listed in the consts.ts file
@@ -82,11 +81,11 @@ class InGame extends AppWindow {
       console.log(`pressed hotkey for ${hotkeyResult.featureId}`);
       const inGameState = await this.getWindowState();
 
-      if (inGameState.window_state === WindowState.NORMAL ||
-        inGameState.window_state === WindowState.MAXIMIZED) {
+      if (inGameState.window_state === overwolf.windows.WindowState.NORMAL ||
+        inGameState.window_state === overwolf.windows.WindowState.MAXIMIZED) {
         this.currWindow.minimize();
-      } else if (inGameState.window_state === WindowState.MINIMIZED ||
-        inGameState.window_state === WindowState.CLOSED) {
+      } else if (inGameState.window_state === overwolf.windows.WindowState.MINIMIZED ||
+        inGameState.window_state === overwolf.windows.WindowState.CLOSED) {
         this.currWindow.restore();
       }
     }

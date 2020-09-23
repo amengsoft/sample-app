@@ -61,11 +61,11 @@ export class OWGamesEvents {
     overwolf.games.events.onNewEvents.removeListener(this.onNewEvents);
   }
 
-  private onInfoUpdates = (info: any): void => {
+  private onInfoUpdates (info: any): void {
     this._delegate.onInfoUpdates(info.info);
   }
 
-  private onNewEvents = (e: any): void => {
+  private onNewEvents (e: any): void  {
     this._delegate.onNewEvents(e);
   }
 

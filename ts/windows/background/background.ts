@@ -2,7 +2,6 @@ import { windowNames, lolClassId } from "../../consts";
 import { OWGames } from '../../odk-ts/ow-games';
 import { OWGameListener } from '../../odk-ts/ow-game-listener';
 import { OWWindow } from '../../odk-ts/ow-window';
-import RunningGameInfo = overwolf.games.RunningGameInfo;
 
 // The background controller holds all of the app's background logic - hence its name. it has
 // many possible use cases, for example sharing data between windows, or, in our case,
@@ -12,10 +11,11 @@ import RunningGameInfo = overwolf.games.RunningGameInfo;
 // instance of it should exist.
 class BackgroundController {
   private static _instance: BackgroundController;
-  private _windows = {};
+  private _windows;
   private _lolGameListener: OWGameListener;
 
   private constructor() {
+    this._windows = {};
     // Populating the background controller's window dictionary
     this._windows[windowNames.desktop] = new OWWindow(windowNames.desktop);
     this._windows[windowNames.inGame] = new OWWindow(windowNames.inGame);
@@ -65,7 +65,7 @@ class BackgroundController {
   }
 
   // Identify whether the RunningGameInfo object we have references Fortnite
-  private isGameLOL(info: RunningGameInfo) {
+  private isGameLOL(info: overwolf.games.RunningGameInfo) {
     return info.classId === lolClassId;
   }
 }

@@ -5,9 +5,11 @@ import { OWWindow } from "../odk-ts/ow-window";
 export class AppWindow {
   protected currWindow: OWWindow;
   protected mainWindow: OWWindow;
-  protected maximized: boolean = false;
+  protected maximized: boolean;
 
   constructor(windowName) {
+    this.maximized = false;
+
     this.mainWindow = new OWWindow('background');
     this.currWindow = new OWWindow(windowName);
     

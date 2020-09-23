@@ -5,7 +5,7 @@ export interface TimerDelegate {
 //------------------------------------------------------------------------------
 export class Timer {
   //----------------------------------------------------------------------------
-  private _timerId: number|null = null;
+  private _timerId: number|null;
   private _id: string|undefined;
   private _delegate: TimerDelegate;
 
@@ -18,6 +18,7 @@ export class Timer {
 
   //----------------------------------------------------------------------------
   constructor(delegate: TimerDelegate, id?: string) {
+    this._timerId = null;
     this._delegate = delegate;
     this._id = id;
   }
@@ -41,7 +42,7 @@ export class Timer {
   }
 
   //----------------------------------------------------------------------------
-  private handleTimerEvent = () => {
+  private handleTimerEvent () {
     this._timerId = null;
     this._delegate.onTimer(this._id);
   }

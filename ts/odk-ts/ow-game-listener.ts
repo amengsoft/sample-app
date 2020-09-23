@@ -21,7 +21,7 @@ export class OWGameListener extends OWListener<OWGameListenerDelegate> {
     overwolf.games.onGameInfoUpdated.removeListener(this.onGameInfoUpdated);
   }
 
-  private onGameInfoUpdated = (update: overwolf.games.GameInfoUpdatedEvent): void => {
+  private onGameInfoUpdated (update: overwolf.games.GameInfoUpdatedEvent): void {
     if (!update || !update.gameInfo) {
       return;
     }
@@ -41,7 +41,7 @@ export class OWGameListener extends OWListener<OWGameListenerDelegate> {
     }
   }
 
-  private onRunningGameInfo = (info: overwolf.games.RunningGameInfo): void => {
+  private onRunningGameInfo (info: overwolf.games.RunningGameInfo): void {
     if (!info) {
       return;
     }
