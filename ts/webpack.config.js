@@ -2,9 +2,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        background: './windows/background/background.ts',
+        background: './windows/background/background.tsx',
         desktop: './windows/desktop/desktop.tsx',
-        in_game: './windows/in_game/in_game.ts'
+        in_game: './windows/in_game/in_game.tsx'
     },
     devtool: 'inline-source-map',
     module: {
